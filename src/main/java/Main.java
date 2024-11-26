@@ -50,3 +50,4 @@ public class Main {
     }
 }
 //TODO, fix the file reading so it can comprehend seperate lines but only for the encrypting does this problem persist
+//TODO, Destroy the program, find any weaknesses
