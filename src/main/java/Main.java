@@ -40,11 +40,13 @@ public class Main {
             } else {
                 System.out.println("Invalid choice.");
             }
+
+            if (choice == 3) {
+                System.out.println("Exiting program.");
+                break; // Exit the program
+            }
         }
-        if (choice == 3) {
-            System.out.println("Exiting program.");
-            return; // Exit the program
-        }
+
     }
 }
-//TODO, fix the file reading so it can comprehend sperate lines but only for the encrypting does this problem persist
+//TODO, fix the file reading so it can comprehend seperate lines but only for the encrypting does this problem persist
