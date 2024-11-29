@@ -68,4 +68,4 @@ public class Main {
 }
 //TODO, Destroy the program, find any weaknesses. To start, any input that is only a number should BE only numbers
 //make a range for the key to prevent the program from being confused. Make the encryption key randomly generated
-//Keep key input but for only for decryption
+//Keep key input but for only for decryptions
