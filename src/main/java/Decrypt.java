@@ -1,6 +1,9 @@
 public class Decrypt {
     public static String decrypt(String decryptedSecret, int key) {
         StringBuilder decrypted = new StringBuilder();
+        if (decryptedSecret == null || decryptedSecret.isEmpty()) {
+            return "The file appears to have no content. Please ensure the file has valid content.";
+        }
         for (int i = 0; i < decryptedSecret.length(); i++) {
             char ch = decryptedSecret.charAt(i);
             if (ch == ' ') {
