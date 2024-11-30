@@ -1,4 +1,5 @@
 Hello, this is a test to see if the encryption/decryption works.
 This is the second line, to check to see if the system prints out seperate lines correctly.
-We will now input every weird symbol to see if the program freaks out
- ¬`!"£$%€€%^&*()_+-=~#}{[]:@;'><?,./éíó
+This text had a jarble of special characters provided, but for convinience of testing it has been removed.
+Not because of errors but because when outputting, the display can't account for certain symbols so it provides
+a weird type of text, which is at fault of the software rather than the code.

@@ -1,10 +1,10 @@
 public class Encrypt {
     public static String encrypt(String secret, int key) {
-        StringBuilder encrypted = new StringBuilder();
         if (secret == null || secret.isEmpty()) {
             return "The file appears to have no content. Please ensure the file has valid content.";
         }
-        if (!encrypted.isEmpty()){
+
+        StringBuilder encrypted = new StringBuilder();
         for (int i = 0; i < secret.length(); i++) {
             char ch = secret.charAt(i);
             if (ch == ' ' || ch == '\n') {
@@ -18,7 +18,7 @@ public class Encrypt {
                 }
                 encrypted.append(ch);
             }
-        }} else {return "It appeears there is no content within the file, make sure the directory is correct or the file has content in it";}
+        }
         return encrypted.toString();
     }
 }
