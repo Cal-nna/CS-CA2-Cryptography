@@ -64,7 +64,7 @@ public class Main {
                 keyboard.nextLine();
 
                 if (key < 1 || key > 100) {
-                    System.out.println("Invalid key. Key must be in the range 1-25.");
+                    System.out.println("Invalid key. Key must be in the range 1-100.");
                     continue;
                 }
                 String decryptedText = Decrypt.decrypt(textCode, key);
