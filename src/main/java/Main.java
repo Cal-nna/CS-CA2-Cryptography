@@ -38,10 +38,10 @@ public class Main {
                 String filePath = keyboard.nextLine(); // e.g., src/main/textFile/Text.file for example purposes
                 textCode = new String(Files.readAllBytes(Paths.get(filePath)));
             } catch (IOException e) {
-                System.out.println("Error reading file: " + e.getMessage() + ". Please try again with the correct file path.");
+                System.out.println("error encrypting/decrypting file");
                 continue; // Prompt the menu again
             } catch (Exception e) { //catches special symbols
-                System.out.println("error encrypting/decrypting file");
+                System.out.println("Error reading file: " + e.getMessage() + ". Please try again with the correct file path.");
                 continue; // Prompt the menu again
             }
 
@@ -73,5 +73,4 @@ public class Main {
         }
     }
 }
-//TODO, Destroy the program, find any weaknesses. To start, any input that is only a number should BE only numbers
-
+//https://github.com/Cal-nna/CS-CA2-Cryptography
