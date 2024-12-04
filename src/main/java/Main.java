@@ -1,7 +1,8 @@
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.util.Base64;
 import java.nio.file.Files;
-import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -17,8 +18,8 @@ public class Main {
 
             if (!keyboard.hasNextInt()) {
                 System.out.println("Invalid input. Please enter one of the numbers presented on the menu.");
-                keyboard.next(); // Consume the invalid input
-                continue; // Prompt the menu again
+                keyboard.next();
+                continue;
             }
 
             int choice = keyboard.nextInt();
@@ -26,7 +27,7 @@ public class Main {
 
             if (choice == 3) {
                 System.out.println("Exiting program.");
-                break; // Exit the program
+                break;
             } else if (choice != 1 && choice != 2) {
                 System.out.println("Invalid choice. Input only one of the prompted numbers in the menu.");
                 continue;
@@ -35,42 +36,34 @@ public class Main {
             String textCode;
             try {
                 System.out.print("Enter the path of the text file: ");
-                String filePath = keyboard.nextLine(); // e.g., src/main/textFile/Text.file for example purposes
+                String filePath = keyboard.nextLine();
                 textCode = new String(Files.readAllBytes(Paths.get(filePath)));
-            } catch (IOException e) {
-                System.out.println("error encrypting/decrypting file");
-                continue; // Prompt the menu again
-            } catch (Exception e) { //catches special symbols
+            } catch (Exception e) {
                 System.out.println("Error reading file: " + e.getMessage() + ". Please try again with the correct file path.");
-                continue; // Prompt the menu again
+                continue;
             }
 
-            int key;
-            if (choice == 1) {
-                // Generate a random key
-                key = new Random().nextInt(100) + 1;
-                System.out.println("Generated encryption key: " + key);
-                String encryptedText = Encrypt.encrypt(textCode, key);
-                System.out.println("Encrypted text: " + encryptedText);
-            } else {
-                // Ask for the key
-                System.out.print("Enter the key for decryption (1-100): ");
-                if (!keyboard.hasNextInt()) {
-                    System.out.println("Invalid input. Please enter a number between 1 and 100.");
-                    keyboard.next();
-                    continue;
-                }
-                key = keyboard.nextInt();
-                keyboard.nextLine();
+            try {
+                if (choice == 1) {
+                    // Generate AES key
+                    KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+                    keyGen.init(128);
+                    SecretKey secretKey = keyGen.generateKey();
+                    String base64Key = Base64.getEncoder().encodeToString(secretKey.getEncoded());
 
-                if (key < 1 || key > 100) {
-                    System.out.println("Invalid key. Key must be in the range 1-100.");
-                    continue;
+                    System.out.println("Generated encryption key: " + base64Key);
+                    String encryptedText = Encrypt.encrypt(textCode, base64Key);
+                    System.out.println("Encrypted text: " + encryptedText);
+                } else {
+                    // Decrypt
+                    System.out.print("Enter the encoded key for decryption: ");
+                    String base64Key = keyboard.nextLine();
+                    String decryptedText = Decrypt.decrypt(textCode, base64Key);
+                    System.out.println("Decrypted text: " + decryptedText);
                 }
-                String decryptedText = Decrypt.decrypt(textCode, key);
-                System.out.println("Decrypted text: " + decryptedText);
+            } catch (Exception e) {
+                System.out.println("Error during encryption/decryption: " + e.getMessage());
             }
         }
     }
 }
-//https://github.com/Cal-nna/CS-CA2-Cryptography

@@ -1,24 +1,19 @@
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+import java.util.Base64;
+
 public class Encrypt {
-    public static String encrypt(String secret, int key) {
+    public static String encrypt(String secret, String base64Key) throws Exception {
         if (secret == null || secret.isEmpty()) {
             return "The file appears to have no content. Please ensure the file has valid content.";
         }
+        byte[] decodedKey = Base64.getDecoder().decode(base64Key);
+        SecretKeySpec secretKey = new SecretKeySpec(decodedKey, "AES");
 
-        StringBuilder encrypted = new StringBuilder();
-        for (int i = 0; i < secret.length(); i++) {
-            char ch = secret.charAt(i);
-            if (ch == ' ' || ch == '\n') {
-                encrypted.append(ch); // Preserve spaces and newlines
-            } else {
-                ch = (char) (ch + key);
-                if (Character.isLowerCase(secret.charAt(i)) && ch > 'z') {
-                    ch = (char) (ch - 26);
-                } else if (Character.isUpperCase(secret.charAt(i)) && ch > 'Z') {
-                    ch = (char) (ch - 26);
-                }
-                encrypted.append(ch);
-            }
-        }
-        return encrypted.toString();
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+
+        byte[] encryptedBytes = cipher.doFinal(secret.getBytes());
+        return Base64.getEncoder().encodeToString(encryptedBytes);
     }
 }
