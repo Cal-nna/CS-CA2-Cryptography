@@ -35,7 +35,7 @@ public class Main {
 
             String textCode;
             try {
-                System.out.print("Enter the path of the text file: ");
+                System.out.print("Enter the path of the text file: "); //src/main/textFile/Text.file for testing
                 String filePath = keyboard.nextLine();
                 textCode = new String(Files.readAllBytes(Paths.get(filePath)));
             } catch (Exception e) {
